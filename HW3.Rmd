@@ -299,6 +299,26 @@ $$
 
 （10）很明顯的DiD需要假設：在「不存在福利政策下」，「2014年雙北平均差異」及「2016年雙北平均差異」要相同，即立足點差異不因時間改變。若2016年雙北老年人平均年齡差距拉大（假設北市較高），說明DiD估計會有偏誤。要如何決解？
 
+<div style="background-color:#f5deb3;">
+
+Ans.
+
+「雙北老年人的平均年齡差異」很可能是造成雙北老年人平均行動力不同的一項重要因素。台北市老人平均年齡較高，在排除政策效果的影響下，其平均行動力應該較低，倘若「雙北老年人的平均年齡差異」還會隨著時間改變，代表這項因素在組間面項與時間面項都會有影響（2014年與2016年兩市立足點差異會不同）。
+
+假設2016年雙北老年人平均年齡差距拉大，會造成雙北老年人平均行動力差距變大（立足點差異擴大），根據第9小題，$\beta^*$的DiD估計值會有負項偏誤，實際$x_{st,i}$的效應應該更大（假設$\beta^*$的估計值為正，$\alpha_1$的估計值為負）。
+
+想得到真正$\beta^*$的估計值，必須先排除「老年人的年齡」的影響。假設「老年人的年齡」為控制變數$\omega_{st,i}$，則
+
+Stage 1：排除「老年人的年齡」的影響
+$$y \hspace{4mm} project \space on \hspace{4mm} \omega \space,\space obtain \hspace{4mm} y-\hat{y_\omega}$$
+$$x \hspace{4mm} project \space on \hspace{4mm} \omega \space,\space obtain \hspace{4mm} x-\hat{x_\omega}$$
+
+Stage 2：找出組間與時間固定效果，做DiD
+
+$$y-\hat{y_\omega} \hspace{4mm} project \space on \hspace{4mm} x-\hat{x_\omega}$$
+
+</div>
+
 
 ## 5 應用
 Run the following codes to download **fatality** data frame object
