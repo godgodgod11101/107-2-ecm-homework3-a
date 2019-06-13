@@ -2,7 +2,9 @@
 title: "HW3"
 author: "林茂廷"
 date: "5/30/2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,6 +18,34 @@ $$y_{it}=x_{it}'\beta+c_{i}+\epsilon_{it}.$$
 另一種方式是使用一階差分，也就是對下式執行OLS估計：
 $$\Delta y_{it}=\Delta x_{it}'\beta+\Delta \epsilon_{it}.$$
 若資料只有t=0,1兩期，說明使用demean估計與一階差分估計會得到相同結果（可以假設x為單一變數讓證明更簡單）。
+$$
+\begin{array}{lcl}
+\mbox{Ans:}\\
+\mbox{demean方法:}\\\\
+\bar{y_i}=\frac{\Sigma^T_{t=1}y_{it}}{T}\\
+\bar{c_i}=\frac{\Sigma{c_i}}{T}=\frac{Tc_i}{T}=c_i\\
+\bar{\epsilon_i}=\frac{\Sigma^T_{t=1}\epsilon_i}{T}\\
+\bar{x}_{it}=\frac{\Sigma^T_{t=1}x_i}{T}\\
+\mbox{其原本的式子}
+y_{it}=x_{it}'\beta+c_i+\epsilon_{it}\\
+\mbox{用demean方法就是每一個變數}
+(y_{it},x_{it},c_i,\epsilon_{it})
+\mbox{減其平均數}\\
+(y_{it}-\bar{y}_i)=(x_{it}-\bar{x}_i)\beta+(c_i-\bar{c}_i)+(\epsilon_{it}-\bar{\epsilon}_i)\\
+=(x_{it}-\bar{x}_i)\beta+(c_i-c_i)+(\epsilon_{it}-\bar{\epsilon}_i)\\
+=(x_{it}-\bar{x}_i)\beta+(\epsilon_{it}-\bar{\epsilon}_i)\\\\\\
+
+\mbox{差分最小平方法:}\\
+\mbox{設 t=0 以及 t=1，則}\\
+y_{i1}=x_{i1}'\beta+c_{i1}+\epsilon_{i1}(\mbox{A式})\\
+y_{i1}=x_{i1}'\beta+c_{i1}+\epsilon_{i1}(\mbox{B式})\\
+\Rightarrow\mbox{A式-B式}\\
+(y_{i1}-y_{i0})=(x_{i1}'\beta-x_{i0}'\beta)+(c_{i1}-c_{i0})+(\epsilon_{i1}-\epsilon_{i0})\\
+(y_{i1}-y_{i0})=(x_{i1}'\beta-x_{i0}'\beta)+(\epsilon_{i1}-\epsilon_{i0})\\
+\mbox{其}c_{i1}=c_{i0}\mbox{是因為}c_i\mbox{是固定效果，不會因時間而做改變}\\\\\\
+\mbox{由上可知，demean方法以及差分最小平方法下的}\beta{會一樣}
+\end{array}
+$$
 
 ## 2 廣義固定效果
 考慮以下廣義固定效果模型： 
