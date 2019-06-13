@@ -211,14 +211,6 @@ $$
 </div>
 
 （4）由於家戶單位為隨機抽出，我們可以假設對任意的s及t，$cov(\epsilon_{it},\epsilon_{js})=0$當$i\neq j$（即任兩不同家戶的迴歸模型殘差無關）。
-
-
-<div style="background-color:#f5deb3;">
-Ans.
-
-
-</div>
-
 （5）令
 $$
 \begin{array}{lcl}
