@@ -1,6 +1,6 @@
 ---
 title: "HW3"
-author: "林茂廷"
+author: ["王正評","張郁瑋","郭品辰","謝芮文"]
 date: "5/30/2019"
 output: html_document
 ---
@@ -16,6 +16,71 @@ $$y_{it}=x_{it}'\beta+c_{i}+\epsilon_{it}.$$
 另一種方式是使用一階差分，也就是對下式執行OLS估計：
 $$\Delta y_{it}=\Delta x_{it}'\beta+\Delta \epsilon_{it}.$$
 若資料只有t=0,1兩期，說明使用demean估計與一階差分估計會得到相同結果（可以假設x為單一變數讓證明更簡單）。
+
+<div style="background-color:#f5deb3;">
+
+Ans.
+
+$$
+\hat{\beta}_{demean} 
+= \frac { 
+        \Sigma_{i=0}^N [(x_{i1}-\bar{ x_{i.} })-(\bar{ x_{.1} }-\frac {\Sigma_{i=0}^N \bar{ x_{i.} }} {N})] [(y_{i1}-\bar{ y_{i.} })-(\bar{ y_{.1} }-\frac {\Sigma_{i=0}^N \bar{ y_{i.} }} {N})]
+        + \Sigma_{i=0}^N [(x_{i2}-\bar{ x_{i.} })-(\bar{ x_{.2} }-\frac {\Sigma_{i=0}^N \bar{ x_{i.} }} {N})] [(y_{i2}-\bar{ y_{i.} })-(\bar{ y_{.2} }-\frac {\Sigma_{i=0}^N \bar{ y_{i.} }} {N})]
+        }
+        {
+        \Sigma_{i=0}^N [(x_{i1}-\bar{ x_{i.} })-(\bar{ x_{.1} }-\frac {\Sigma_{i=0}^N \bar{ x_{i.} }} {N})]^2 
+        + \Sigma_{i=0}^N [(x_{i2}-\bar{ x_{i.} })-(\bar{ x_{.2} }-\frac {\Sigma_{i=0}^N \bar{ x_{i.} }} {N})]^2
+        }
+$$
+$$
+= \frac { 
+        \Sigma_{i=0}^N [(x_{i1}-x_{i2})/2-(\bar{ x_{.1} }-\bar{ x_{.2} })/2] [(y_{i1}-y_{i2})/2-(\bar{ y_{.1} }-\bar{ y_{.2} })/2]
+        + \Sigma_{i=0}^N [(x_{i2}-x_{i1})/2-(\bar{ x_{.2} }-\bar{ x_{.1} })/2] [(y_{i2}-y_{i1})/2-(\bar{ y_{.2} }-\bar{ y_{.1} })/2]
+        }
+        {
+        \Sigma_{i=0}^N [(x_{i1}-x_{i2})/2-(\bar{ x_{.1} }-\bar{ x_{.2} })/2]^2
+        + \Sigma_{i=0}^N [(x_{i2}-x_{i1})/2-(\bar{ x_{.2} }-\bar{ x_{.1} })/2]^2
+        }
+$$
+
+$$
+= \frac { 
+        \frac{1}{4}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })] [(y_{i2}-y_{i1})-(\bar{ y_{.2} }-\bar{ y_{.1} })]
+        + \frac{1}{4}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })] [(y_{i2}-y_{i1})-(\bar{ y_{.2} }-\bar{ y_{.1} })]
+        }
+        {
+        \frac{1}{4}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })]^2
+        + \frac{1}{4}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })]^2
+        }
+$$
+$$
+= \frac { 
+        \frac{1}{2}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })] [(y_{i2}-y_{i1})-(\bar{ y_{.2} }-\bar{ y_{.1} })]
+        }
+        {
+        \frac{1}{2}
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })]^2
+        }
+$$
+$$
+= \frac {
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })] [(y_{i2}-y_{i1})-(\bar{ y_{.2} }-\bar{ y_{.1} })]
+        }
+        {
+        \Sigma_{i=0}^N [(x_{i2}-x_{i1})-(\bar{ x_{.2} }-\bar{ x_{.1} })]^2
+        }
+$$
+$$
+= \hat{\beta}_{一階差分}
+$$
+
+</div>
+
 
 ## 2 廣義固定效果
 考慮以下廣義固定效果模型： 
@@ -73,14 +138,102 @@ $$
   
 （1）證明$\frac{\sum_{it} v_{it}\alpha_{it}}{NT}=0$。（註：當兩隨機變數w及z，其平均值為0時，$E(wz)=0$表示兩者covariance為0，即兩者無線性關連，故此題說明研究者的拆解方式會保證兩者sample covariance為0，有樣本上的零線性關連）
 
-（2）說明$E(v_{it}\alpha_i)=0$。（說理過程所使用的假設及定理都必需清楚寫下） 
+<div style="background-color:#f5deb3;">
 
+
+Ans.
+
+將
+$$
+v_{it}=\epsilon_{it}-\alpha_{it}\mbox{代入}\frac{\sum_{it}(v_{it})(\alpha_{it})}{NT}
+$$
+得
+$$
+\frac{\sum_{it}(\epsilon_{it}-\alpha_{i})(\alpha_{it})}{NT}(\mbox{1式})\\
+$$
+將
+$$
+\alpha_{i}=\frac{\sum_{i=1}^T \epsilon_{it}}{T}=\bar{\epsilon_{i}}\mbox{代入(1式)}\\
+$$
+
+得到
+$$
+\frac{\sum_{it}(\epsilon_{it}-\bar{epsilon_{i}})(\alpha_{it})}{NT}\\
+$$
+取期望值
+$$
+\frac{\sum_{it}\alpha_{it}[E(\epsilon_{it}-\bar{\epsilon}_i)]}{NT}=0\\
+$$
+
+故$v_{it}$和$\alpha_{it}$樣本covariance為零，有樣本上的零線性關聯
+
+</div>
+
+
+（2）說明$E(v_{it}\alpha_i)=0$。（說理過程所使用的假設及定理都必需清楚寫下
 令$\sigma_{\alpha}^2=V(\alpha_i)$，$\sigma_{v}^2=V(v_{it})$，及$\sigma_{\alpha,v}=cov(\alpha_i,v_{it})$
+
+
+<div style="background-color:#f5deb3;">
+Ans.
+
+因為
+$$
+\alpha_{i}=\frac{\sum_{i=1}^T\epsilon_{it}}{T}
+$$
+和
+$$
+v_{it}=\epsilon_{it}-\alpha_{i}
+$$
+故
+$$
+E(v_{it}\alpha_{i})=E((\epsilon_{it}-\frac{\sum_{i=1}^T\epsilon_{it}}{T})*(\frac{\sum_{i=1}^T\epsilon_{it}}{T})\\
+=E(\epsilon_{it}-\bar{\epsilon}_i)*E(\bar{\epsilon}_i)\\
+$$
+因為前項為零，故整項為零
+
+</div>
+
 
 （3）說明$cov(\alpha_i,v_{it})=0$且推導$V(\epsilon_{it})$，及$cov(\epsilon_{it},\epsilon_{is})$當$t\neq s$。
 
-（4）由於家戶單位為隨機抽出，我們可以假設對任意的s及t，$cov(\epsilon_{it},\epsilon_{js})=0$當$i\neq j$（即任兩不同家戶的迴歸模型殘差無關）。
+<div style="background-color:#f5deb3;">
 
+Ans.
+
+(1)
+$$
+\mbox{因為上一題已得出}E(v_{it}\alpha_{i})=0\mbox{，表示}covariance(\alpha_{i},v_{it})=0\\
+$$
+(2)
+因為
+$$
+\alpha_i=\frac{\sum_{i=1}^T\epsilon_{it}}{T}\\
+v_{it}=\epsilon_{it}-\alpha_{i}\\
+$$
+得
+$$
+\epsilon_{it}=v_{it}+\alpha_{i}\\
+$$
+求$v(\epsilon_{it})$
+$$
+v(\epsilon_{it})=v(v_{it}+\alpha_{i})\\
+=v(v_{it}+\alpha_{i})\\
+=v(v_{it})+2Cov(v_{it},\alpha_{i})+v(\alpha_{i})\\
+={\sigma_v}^2+{\sigma_\alpha}^2\\
+$$
+(3)
+求$\\Cov(\epsilon_{it},\epsilon_{is})\\$
+$$
+\\Cov(\epsilon_{it},\epsilon_{is})\\
+=Cov[v_{it}+\alpha_{i},(v_{is}+\alpha_{i})]\\
+=0+0+0+Var(\alpha_{i})\\
+={\sigma_{\alpha}}^2
+$$
+
+</div>
+
+（4）由於家戶單位為隨機抽出，我們可以假設對任意的s及t，$cov(\epsilon_{it},\epsilon_{js})=0$當$i\neq j$（即任兩不同家戶的迴歸模型殘差無關）。
 （5）令
 $$
 \begin{array}{lcl}
@@ -99,7 +252,51 @@ $$
 $$
 請推導$\Omega$矩陣內容（此即為Random effect模型的殘差共變異矩陣）。推導步驟若有用到任何假設，必需清楚標明。
 
+<div style="background-color:#f5deb3;">
+Ans.
+
+因為
+
+$$
+{\epsilon} =
+\begin{pmatrix}
+{\epsilon}_1 \\{\epsilon}_2 \\ \vdots \\{\epsilon}_N
+\end{pmatrix}\\
+$$
+故$\Omega=E(\epsilon\epsilon^T)\\$
+
+$$
+\Omega=E\begin{pmatrix}\begin{bmatrix}{\epsilon}_1 \\{\epsilon}_2 \\ \vdots \\{\epsilon}_N\end{bmatrix}\begin{bmatrix}\epsilon_1,\epsilon_2,\dots,\epsilon_N\end{bmatrix}\end{pmatrix}
+=E\begin{bmatrix}
+E\epsilon^2_1&E(\epsilon_1\epsilon_2)&E(\epsilon_1\epsilon_3)&\dots&E(\epsilon_1\epsilon_N)\\
+E(\epsilon_2\epsilon_1)&E(\epsilon^2_2)\\
+\vdots&&\ddots\\
+\vdots&&&\ddots\\
+E(\epsilon_N\epsilon_1)&&&&E(\epsilon^2_N)
+\end{bmatrix}\\
+$$
+其中
+
+$$
+\epsilon_i=
+\begin{pmatrix}
+{\epsilon}_{i1} \\{\epsilon}_{i2} \\ \vdots \\{\epsilon}_{iN}
+\end{pmatrix}
+$$
+
+</div>
+
+
+
 （6）請問Fixed effect model的殘差指的是什麼？它的共變異矩陣在前述設定下會長怎麼樣？
+
+<div style="background-color:#f5deb3;">
+
+Ans:
+
+去除$\alpha$影響的非解釋變數x 造成的y的因素
+
+</div>
 
 ## 4 DiD
 考慮以下新聞：2015年8月北市3項老人福利政策施予對象以年滿65歲以上老人為主，只要持有敬老悠遊卡就可享有乘車優惠。
